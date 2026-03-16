@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import fs from "node:fs";
 import { generateBoard } from "./board.js";
 import { BoggleSolver } from "./solver.js";
@@ -9,7 +10,9 @@ const myDicktionary = fs
   .map(w => w.trim().toLowerCase());
 
 const app = express();
-
+app.use(cors({
+  origin: "http://localhost:4200"
+}));
 const solver = new BoggleSolver(myDicktionary);
 
 app.get("/generate-board", (req, res) => {
