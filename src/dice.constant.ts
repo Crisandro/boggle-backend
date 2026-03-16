@@ -1,0 +1,29 @@
+export class DiceConstant {
+  public static readonly dices: Array<string> = [
+    "aaafrs",
+    "aaeeee",
+    "aafirs",
+    "adennn",
+    "aeeeem",
+    "aeegmu",
+    "aegmnn",
+    "afirsy",
+    "bjkqxz",
+    "ccnstw",
+    "ceiilt",
+    "ceilpt",
+    "ceipst",
+    "dhhnot",
+    "dhhlor",
+    "dhlnor",
+    "ddlnor",
+    "eiiitt",
+    "emottt",
+    "ensssu",
+    "fiprsy",
+    "gorrvw",
+    "hiprry",
+    "nootuw",
+    "ooottu"
+  ]
+}
