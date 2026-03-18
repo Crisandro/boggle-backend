@@ -11,7 +11,10 @@ const myDicktionary = fs
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:4200"
+  origin: [
+    "http://localhost:4200",
+    "https://sandro-bogglegame.netlify.app"
+  ]
 }));
 const solver = new BoggleSolver(myDicktionary);
 
