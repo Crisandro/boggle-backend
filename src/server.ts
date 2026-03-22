@@ -3,6 +3,7 @@ import cors from "cors";
 import fs from "node:fs";
 import { generateBoard } from "./board.js";
 import { BoggleSolver } from "./solver.js";
+import { encrypt } from "./crypto.js";
 
 const myDicktionary = fs
   .readFileSync("./dictionary.txt", "utf-8")
@@ -28,11 +29,9 @@ app.get("/generate-board", (req, res) => {
 
   const board: string[][] = generateBoard(boardSize);
 
-  const words = solver.solve(board);
-
+  const words = encrypt({board, words: solver.solve(board)});
   res.json({
-    board,
-    words
+    response: words
   });
 });
 
