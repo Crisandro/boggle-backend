@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import fs from "node:fs";
+import { db } from './firebase.js';
 import { generateBoard } from "./board.js";
 import { BoggleSolver } from "./solver.js";
 import { encrypt } from "./crypto.js";
@@ -33,6 +34,39 @@ app.get("/generate-board", (req, res) => {
   res.json({
     response: words
   });
+});
+
+app.post('/save-score', async (req, res) => {
+  try {
+    const { name, score, words } = req.body;
+
+    await db.collection('scores').add({
+      name,
+      score,
+      words,
+      createdAt: new Date()
+    });
+
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to save score' });
+  }
+});
+
+app.get('/leaderboard', async (req, res) => {
+  try {
+    const snapshot = await db
+      .collection('scores')
+      .orderBy('score', 'desc')
+      .limit(10)
+      .get();
+
+    const scores = snapshot.docs.map(doc => doc.data());
+
+    res.json(scores);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch leaderboard' });
+  }
 });
 
 app.listen(3000, () => {
