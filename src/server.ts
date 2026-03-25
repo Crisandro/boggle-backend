@@ -12,6 +12,7 @@ const myDicktionary = fs
   .map(w => w.trim().toLowerCase());
 
 const app = express();
+app.use(express.json());
 app.use(cors({
   origin: [
     "http://localhost:4200",
