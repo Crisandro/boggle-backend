@@ -49,7 +49,8 @@ app.post('/save-score', async (req, res) => {
 
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to save score' });
+    console.error('SAVE SCORE ERROR:', error);
+    res.status(500).json({ error: String(error) });
   }
 });
 
@@ -65,6 +66,7 @@ app.get('/leaderboard', async (req, res) => {
 
     res.json(scores);
   } catch (error) {
+    console.error('Failed to fetch leaderboard', error);
     res.status(500).json({ error: 'Failed to fetch leaderboard' });
   }
 });
